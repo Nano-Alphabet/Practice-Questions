@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Questions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <style>
+    .heading
+    {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+   
+    
+    @media screen and (max-width: 1000px) {
+      .list-group
+      {
+        margin-left: 15px;
+      }
+      .list-group-item h3
+      {
+        font-size: 410%;
+      }
+      .row h2
+      {
+        font-size: 450%;
+      }
+
+      button,p
+      {
+        font-size: 330%;
+      }
+      .form-group label,input,textarea
+      {
+        font-size: 330%;
+      }
+      .form-group input,textarea
+      {
+        border: 2px solid black;
+      }
+      #Add
+      {
+        font-size: 330%;
+      }
+      #Edit
+      {
+        font-size: 75%;
+      }
+      #Back
+      {
+        font-size: 330%;
+
+      }
+    }
+    </style>
+</head>
+<body>
+    <div class="conatiner">
+        <div class="heading" style="padding: 15px;">
+            <div class="row">
+                <h2 class="col-7">Experiments</h2>
+                <button type="button" data-toggle="collapse" data-target="#Form" class="btn-primary col-5">Add Experiment</button>
+            </div>
+            <form action="/Home" method="post" id="Form" class="collapse" style="padding:5px 0px 20px 25px;">
+                <div class="form-group">
+                    <label for="AddingQuestion" class="col-12">Experiment Name  </label>
+                    <input type="text" name="experiment_name" placeholder="Enter Name" class="col-8" autocomplete="off">
+                </div>
+                <button type="submit" id="Add" class="btn btn-dark" style="margin-left: 15px;">Add</button>
+            </form>
+        </div>
+        <ul class="list-group">
+            {% for i in items %}
+              <a href="experiments/{{i.id}}/" style="text-decoration: none;">
+                  <li class="list-group-item list-group-item-action">
+                    <h3 data-toggle="collapse" data-target="#Answer">{{i.name}}</h3>
+                  </li>
+              </a>
+            {% endfor %}
+        </ul>
+        <a href="{{url_for('HelloWorld')}}" class="btn btn-secondary col-12" style="margin-top: 30px;" id="Back">Back to Experiments</a>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        var Colours = ["list-group-item-primary", "list-group-item-secondary", "list-group-item-success","list-group-item-danger","list-group-item-warning","list-group-item-info","list-group-item-light","list-group-item-dark"];
+        var GroupItems=document.querySelectorAll('.list-group-item');
+        p=0;
+        for(var i=0;i<GroupItems.length;i++)
+        {
+            if(p>=Colours.length)
+                p=0;
+            GroupItems[i].classList.add(Colours[p]);
+            p++;
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

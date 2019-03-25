@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Questions</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <style>
+    .heading
+    {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    .list-group-item p
+    {
+        font-size: 22px;
+    }
+   
+    
+    @media screen and (max-width: 1000px) {
+      .list-group
+      {
+        margin-left: 15px;
+      }
+      .row h2,h3,a
+      {
+        font-size: 370%;
+      }
+      button,p
+      {
+        font-size: 330%;
+      }
+      .form-group label,input,textarea
+      {
+        font-size: 330%;
+      }
+      .form-group input,textarea
+      {
+        border: 2px solid black;
+      }
+      #Add
+      {
+        font-size: 330%;
+      }
+      #Edit
+      {
+        font-size: 75%;
+      }
+      #Back
+      {
+        font-size: 330%;
+
+      }
+     .list-group-item p
+     {
+        font-size: 355%;
+     }
+     .list-group-item input
+     {
+        font-size: 330%;
+
+     }
+     .list-group-item p button
+     {
+        font-size: 90%;
+     }
+    #SubmitEditedAnswer
+    {
+        margin-bottom: 25px;
+    }
+  }
+    </style>
+</head>
+<body>
+    <div class="conatiner">
+        <div class="heading" style="padding: 15px;">
+            <div class="row">
+                <h2 class="col-7">Practise Questions</h2>
+                <button type="button" id="AddQuestion" data-toggle="collapse" data-target="#Form" class="btn-primary col-5">Add Question</button>
+            </div>
+            <form action="{{url_for('AddItems', exp_id=id)}}" method="post" id="Form" class="collapse">
+                <div class="form-group">
+                    <label for="AddingQuestion" class="col-1">Question  </label>
+                    <input type="text" name="question" placeholder="Enter Question" class="col-11" autocomplete="off">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="AddingAnswer" class="col-1">Answer  </label>
+                    <textarea type="text" name="answer" placeholder="Enter Answer" class="col-11"></textarea>
+                </div>
+                <button type="submit" id="Add" class="btn btn-dark" style="margin-left: 15px;">Add</button>
+            </form>
+        </div>
+        <ul class="list-group">
+            {% for i in items %}
+            <li class="list-group-item list-group-item-action">
+                <h3 data-toggle="collapse" data-target="#Answer{{i.id}}">{{i.question}}
+                </h3>
+                <p id="Answer{{i.id}}" class="collapse">{{i.answer}}<button onclick="textAdder({{i.id}})" id="Edit{{i.id}}" data-toggle="collapse" data-target="#AnswerEdit{{i.id}}" class="btn btn-dark" style="margin-left: 20px;">Edit</button><form id="AnswerEdit{{i.id}}" action="{{url_for('edit_item', exp_id=id, item_id=i.id)}}" method="post" class="collapse"><div class="form-group"><input type="text" name="answer" autocomplete="off"></input><input type="submit" id="SubmitEditedAnswer" name="sub" class="btn btn-danger" style="margin-left: 10px;"></div></form></p>
+            </li>
+            {% endfor %}
+        </ul>
+        <a href="{{url_for('HelloWorld')}}" class="btn btn-secondary col-12" style="margin-top: 30px;" id="Back">Back to Experiments</a>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        var Colours = ["list-group-item-primary", "list-group-item-secondary", "list-group-item-success","list-group-item-danger","list-group-item-warning","list-group-item-info","list-group-item-light","list-group-item-dark"];
+        var GroupItems=document.querySelectorAll('.list-group-item');
+        p=0;
+        for(var i=0;i<GroupItems.length;i++)
+        {
+            if(p>=Colours.length)
+                p=0;
+            GroupItems[i].classList.add(Colours[p]);
+            p++;
+        }
+        function textAdder(Id) {
+            temp="#AnswerEdit"+String(Id)+" input";
+            temp2="#Answer"+String(Id);
+            w=document.querySelector(temp2).textContent;
+            document.querySelector(temp).value=w.substring(0,w.length-4);
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
